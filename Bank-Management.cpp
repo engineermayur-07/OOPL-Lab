@@ -48,7 +48,9 @@ class BankAccount {
         char name [100] ;
         cout << "\tInitializing account registration process\n" ;
         cout << "Enter Account Holder Name : " ;
-        cin >> name ;
+        getchar() ;  
+        fgets( name , 100 , stdin ) ;
+        // cin >> name ;
         strcpy( accountHolderName , name ) ;
 
         strcpy( accountNumber , &accno[0] ) ;
