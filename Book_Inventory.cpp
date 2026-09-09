@@ -1,166 +1,165 @@
-#include<iostream>
-#include<string>
-#include<string.h>
-#include<iomanip>
-
+ #include<bits/stdc++.h>
 using namespace std;
 
 class Book {
-    char *title ;
-    char *author ;
-    char *publisher ;
-    float price ;
-    int stock ;
+private:
+    string title;
+    string author;
+    string publisher;
+    double price;
+    int quantity;
+
     
-    static int records ;
+    public :
+    static int total_records;
 
-    public: 
-        Book(){
-
-            title = new char ;
-            author = new char ;
-            publisher = new char ;
-            strcmp( title , "Unknown" ) ;
-            strcmp( publisher , "Unknown" ) ;
-            strcmp( author , "Unknown" ) ;
-            price = 0.0 ;
-            stock = 0 ;
-
-        }
-        Book( char *t , char *a , char *p , float pr, int s){
-
-            title = new char ;
-            author = new char ;
-            publisher = new char ;
-            strcpy( title , t ) ;
-            strcpy( author , a ) ;
-            strcpy( publisher , p ) ;
-            price = pr ;
-            stock = s ;
-
-        }
-        ~Book(){
-
-            cout << "Destructor called for Book : " << title << "Author : " << author << "Publisher : " << publisher << endl ;
-            
-            delete title ;
-            delete author ;
-            delete publisher ;
-
-        }
-
-        friend bool search(Book B , char *t , char *a ) ;
-
-        void accept(){
-            
-            records ++ ;
-
-            cout << "Enter title of book : "  ;
-            cin.getline( title , 20 ) ;
-
-            cout << "Enter author of book : " ;
-            cin.getline( author , 20 ) ;
-
-            cout << "Enter publisher of book : " ;
-            cin.getline( publisher , 20 ) ;
-
-            cout << "Enter price of book : " ;
-            cin >> price ;
-
-            cout << "Enter stock of book : " ;
-            cin >> stock ;
-
-        }
-
-        void sell( int copy ){
-            if( copy <= stock && copy > 0 ){
-                stock = stock - copy ;
-                cout << "Book : " << title << endl << "Author : " << author << endl << "Price : " << endl << price << "Total Price : " << price * copy << endl ;
-            }
-            else {
-                cout << " The Book has no required stock or required copies are less than 1 " << endl ;
-                cout << "Available Stock : " << stock << endl ;
-            }
-        }
-
-        void display(){
-             cout << title << setw(15) << author << setw(15) << publisher << setw(15) << price << setw(15) << stock << endl ;
-        }
-}B[100] ;
-
-
-bool search( Book B , char *t , char *a ){
-
-    if( strcmp( B.title , t ) == 0 && strcmp( B.author , a ) == 0 ){
-        return true ;
-    }
-    else {
-        return false ;
+    Book() {
+        title = "UNKNOWN";
+        author = "UNKNOWN";
+        publisher = "UNKNOWN";
+        price = 0.0;
+        quantity = 0;
     }
 
+    void addBook() {
+        cout << "Enter Book Title: ";
+        cin >> title;
+        cout << "Enter Author Name: ";
+        cin >> author;
+        cout << "Enter Publisher: ";
+        cin >> publisher;
+        cout << "Enter Price: ";
+        cin >> price;
+        cout << "Enter Quantity: ";
+        cin >> quantity;
+        total_records++;
+    }
+
+    void displayBook() {
+        cout << "Title: " << title << endl;
+        cout << "Author: " << author << endl;
+        cout << "Publisher: " << publisher << endl;
+        cout << "Price: " << price << endl;
+        cout << "Quantity: " << quantity << endl;
+    }
+
+    void updateBook() {
+        cout << "Enter new Book Title: ";
+        cin >> title;
+        cout << "Enter new Author Name: ";
+        cin >> author;
+        cout << "Enter new Publisher: ";
+        cin >> publisher;
+        cout << "Enter new Price: ";
+        cin >> price;
+        cout << "Enter new Quantity: ";
+        cin >> quantity;
+    }
+
+    void sellBook() {
+        int sellQuantity;
+        cout << "Enter Quantity to Sell: ";
+        cin >> sellQuantity;
+        if (sellQuantity <= quantity) {
+            quantity -= sellQuantity;
+            cout << "Sold " << sellQuantity << " copies of " << title << endl;
+        } 
+        else {
+            cout << "Insufficient stock to sell " << sellQuantity << " copies." << endl;
+        }
+    }
+
+    friend void searchBook( Book [] , string title , string purpose ) ;
+    friend void displayAllBooks( Book [] ) ;
+};
+
+void displayAllBooks( Book books[] ) {
+    cout << "Total Records: " << Book::total_records << endl;
+    cout << "title\tAuthor\tPublisher\tPrice\tQuantity" << endl;
+    for (int i = 0; i < Book::total_records; i++) {
+         
+        cout << books[i].title << "\t" << books[i].author << "\t" << books[i].publisher << "\tRs" << books[i].price << "\t" << books[i].quantity << endl;
+    }
 }
 
-int main(){
 
-    int choice , i = 0 , copy ;
-
-     cout << "MENU" << endl ;
-     cout << "1. Add Book" << endl ;
-     cout << "2. Sell Book" << endl ;
-     cout << "3. Display Books" << endl ;
-     cout << "4. Exit" << endl ;
-
-     cin >> choice ;
-
-     switch( choice ){
-
-        case 1 : 
-            B[i].accept() ;
-            i++ ;
-            break ;
-
-        case 2 :
-
-            char t[20] ;
-            char a[20] ;
-
-            cout << "Enter the title of book to sell : " ;
-            cin.getline( t , 20 ) ;
-
-            cout << "Enter the author of book to sell : " ;
-            cin.getline( a , 20 ) ;
-
-            int flag = 0 ;
-
-            for( int j = 0 ; j < i ; j++ ){
-
-                if( search( B[j] , t , a ) ){
-
-                    cout << "Enter the number of copies to sell : " ;
-                    cin >> copy ;
-                    B[j].sell( copy ) ;
-                    flag = 1 ;
-                    break ;
-                }
-
+void searchBook( Book books[], string title , string purpose ) {
+    int flag = 0;
+    for (int i = 0; i < Book::total_records; i++) {
+        if (books[i].title == title) {
+            if (purpose == "sell") {
+                books[i].sellBook();
             }
-            if( flag == 0 ){
-                cout << "Book not found" << endl ;
+             else if (purpose == "update") {
+                books[i].updateBook();
             }
-            break ;
-
-        case 3 :
-            for( int j = 0 ; j < i ; j++ ){
-                B[j].display() ;
+            else if (purpose == "display") {
+                books[i].displayBook();
             }
-            break ;
+            flag = 1 ;
+            return;
+        }
+    }
+    if (flag == 0) {
+        cout << "Book not found." << endl;
+    }
+    return ;
+}
 
-        case 4 :
-            exit(0) ;
-            break ;
+int Book::total_records = 0;
 
-        default :
-            cout << "Invalid Choice" << endl ;
-     }
+int main() {
+    Book books[100];
+    int choice;
+    do {
+        cout << "1. Add Book" << endl;
+        cout << "2. Display Book" << endl;
+        cout << "3. Update Book" << endl;
+        cout << "4. Sell Book" << endl;
+        cout << "5.Display All Books" << endl;
+        cout << "6. Exit" << endl;
+        cout << "Enter your choice: ";
+        cin >> choice;
 
+        switch (choice) {
+            case 1:{
+                int i = Book::total_records;
+                books[i].addBook();
+                break;
+            }
+            case 2: {
+                string title;
+                cout << "Enter Book Title to Display: ";
+                cin >> title;
+                searchBook(books, title, "display");
+                break;
+            }
+            case 3: {
+                string title;
+                cout << "Enter Book Title to Update: ";
+                cin >> title;
+                searchBook(books, title, "update");
+                break;
+            }
+            case 4: {
+                string title;
+                cout << "Enter Book Title to Sell: ";
+                cin >> title;
+                searchBook(books, title, "sell");
+                break;
+            }
+            case 5: {
+                displayAllBooks(books);
+                break;
+            }
+            case 6:{
+                cout << "Exiting..." << endl;
+                break;
+            }
+            default:
+                cout << "Invalid choice. Please try again." << endl;
+        }
+    } while (choice != 5);
+
+    return 0;
 }
