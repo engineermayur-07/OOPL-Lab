@@ -111,7 +111,7 @@ int Book::total_records = 0;
 int main() {
     Book books[100];
     int choice;
-    do {
+    while(true) {
         cout << "1. Add Book" << endl;
         cout << "2. Display Book" << endl;
         cout << "3. Update Book" << endl;
@@ -154,12 +154,12 @@ int main() {
             }
             case 6:{
                 cout << "Exiting..." << endl;
-                break;
+                return 0 ;
             }
             default:
                 cout << "Invalid choice. Please try again." << endl;
         }
-    } while (choice != 5);
+    } 
 
     return 0;
 }
