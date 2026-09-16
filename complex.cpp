@@ -53,7 +53,7 @@ int main(){
 
     while(true){
         int choice = -1 ;
-        cout << "MENU" << endl ;
+        cout <<endl << "MENU" << endl ;
         cout << "1. Add " << endl ;
         cout << "2. Subtract " << endl ;
         cout << "3. Multiply " << endl ;
