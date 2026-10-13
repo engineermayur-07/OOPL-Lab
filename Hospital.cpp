@@ -23,21 +23,9 @@ class Person {
     
     public :
         static int records ;
-        virtual void display() {
-            cout << "Name: " << name << endl;
-            cout << "Age: " << age << endl;
-            cout << "Contact Number: " << contactNumber << endl;
-            
-        }
+        virtual void display() = 0 ;
 
-        virtual void acceptDetails() {
-            cout << "Enter Name: ";
-            cin >> name ;
-            cout << "Enter Age: ";
-            cin >> age ;
-            cout << "Enter Contact Number: ";
-            cin >> contactNumber ;
-        }
+        virtual void acceptDetails() = 0 ;
 };
 
 class Doctor : public Person {
@@ -50,14 +38,23 @@ class Doctor : public Person {
     public :
         static int doctorCount ;  
         void display() override {
-            Person::display();
+            
+            cout << "Name: " << name << endl;
+            cout << "Age: " << age << endl;
+            cout << "Contact Number: " << contactNumber << endl;
             cout << "Doctor ID: " << DoctorID << endl;
             cout << "Specialization: " << specialization << endl;
             cout << "Experience: " << experience << " years" << endl;
         }
 
         void acceptDetails() override {
-            Person::acceptDetails();
+            
+            cout << "Enter Name: ";
+            cin >> name ;
+            cout << "Enter Age: ";
+            cin >> age ;
+            cout << "Enter Contact Number: ";
+            cin >> contactNumber ;
             cout << "Enter Specialization: ";
             cin >> specialization ;
             cout << "Enter Experience (in years): ";
@@ -103,14 +100,23 @@ class Nurse : public Person {
     public :
         static int nurseCount ;
         void display() override {
-            Person::display();
+            
+            cout << "Name: " << name << endl;
+            cout << "Age: " << age << endl;
+            cout << "Contact Number: " << contactNumber << endl;
             cout << "Nurse ID: " << NurseID << endl;
             cout << "Department: " << department << endl;
             cout << "Shift: " << shift << endl;
         }
 
         void acceptDetails() override {
-            Person::acceptDetails();
+            
+            cout << "Enter Name: ";
+            cin >> name ;
+            cout << "Enter Age: ";
+            cin >> age ;
+            cout << "Enter Contact Number: ";
+            cin >> contactNumber ;
             cout << "Enter Department: ";
             cin >> department ;
             cout << "Enter Shift: ";
@@ -155,14 +161,23 @@ class Admin : public Person {
     public :
         static int adminCount ;
         void display() override {
-            Person::display();
+            
+            cout << "Name: " << name << endl;
+            cout << "Age: " << age << endl;
+            cout << "Contact Number: " << contactNumber << endl;
             cout << "Admin ID: " << AdminID << endl;
             cout << "Designation: " << designation << endl;
             cout << "Department: " << department << endl;
         }
 
         void acceptDetails() override {
-            Person::acceptDetails();
+            
+            cout << "Enter Name: ";
+            cin >> name ;
+            cout << "Enter Age: ";
+            cin >> age ;
+            cout << "Enter Contact Number: ";
+            cin >> contactNumber ;
             cout << "Enter Designation: ";
             cin >> designation ;
             cout << "Enter Department: ";
@@ -262,7 +277,7 @@ int main() {
 
             case 4: {
                 int doctorID;
-                cout << "Enter Doctor ID to Display: ";
+                cout << "Enter Doctor ID to Display: ";  
                 cin >> doctorID;
                 searchDoctor(doctors, doctorID, "display");
                 break;
