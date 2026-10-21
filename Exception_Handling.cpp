@@ -21,14 +21,14 @@ class Television {
         double price;
     public :
         static int records ;
-        friend istream &operator >>(istream & , Television &) ;
-        friend ostream &operator << (ostream & , Television & ) ;
+        friend istream& operator >> (istream& , Television &) ;
+        friend ostream& operator << (ostream& , Television & ) ;
     
 };
 
 int Television :: records = 0 ;
 
-istream &operator >> ( istream & i , Television &T ){
+istream& operator >> ( istream& i , Television &T ){
 
     cout << "Enter the model no of Television : " ;
     i >> T.modelNumber ;
@@ -55,7 +55,7 @@ istream &operator >> ( istream & i , Television &T ){
     
 }
 
-ostream &operator << ( ostream & o , Television &T ){
+ostream& operator << ( ostream& o , Television &T ){
     
     o << "Model No : " << "T" << T.modelNumber << endl ;
     o << "Screen Size : " << T.screenSize << " inches "<< endl ;
